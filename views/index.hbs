@@ -1,0 +1,17 @@
+<h1>{{title}}</h1>
+<p>Welcome to {{title}}</p>
+
+<div>
+    <h2>Lediga lägenheter</h2>
+    <ul>
+        {{#each list}}
+        <li>
+            <p><strong>{{Stadsdel}}</strong></p>
+            <p>{{AntalRum}}</p>
+            <p>{{Yta}}</p>
+            <p>{{Hyra}}</p>
+            <p>{{AnnonseradTill}}</p>
+            </li>
+        {{/each}}
+    </ul>
+</div>
