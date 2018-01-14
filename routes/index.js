@@ -14,15 +14,25 @@ router.get('/', function(req, res, next) {
     if (error) {
       res.render('index', {title: 'Failed'});
     }
+    // const n = JSON.parse(body)
+    //           .filter(c => c.Stadsdel === 'Högdalen')
+    //           .map(d => notifyExternal(c));
 
     const data = lodashTake(lodashFilter(JSON.parse(body), function(match) {
-      return match.Stadsdel === 'Högdalen' || match.Stadsdel === 'Bandhagen' || match.Stadsdel === 'Rågsved';
-    }), 20);
+        return match.Stadsdel === 'Högdalen' || match.Stadsdel === 'Bandhagen' || match.Stadsdel === 'Rågsved';
+      }), 20).map(m => notifyExternal(m));
 
-    const sendurl = 'https://hooks.slack.com/services/' + key;
+    res.render('index', { title: 'Bostad alert', list: data }); 
+  })
+});
+
+function notifyExternal(data) {
+  const sendurl = 'https://hooks.slack.com/services/' + key;
     const senddata = {
-      text: "Test from localhost"
+      text: data.Gatuadress + "\n" + "Antal rum: " + data.AntalRum + " Hyra: " + data.Hyra
     };
+
+    // Send to Slack.
     // request(
     //   {
     //     method: 'post',
@@ -31,13 +41,9 @@ router.get('/', function(req, res, next) {
     //     url: sendurl,
     //   }, function(error, response, body) {
     //     console.log(error);
-    //     console.log(response);
+    //     // console.log(response);
     //   }
     // );
-    console.log(sendurl);
-
-    res.render('index', { title: 'Bostad alert', list: data }); 
-  })
-});
+}
 
 module.exports = router;
