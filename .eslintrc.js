@@ -5,7 +5,7 @@ module.exports = {
     },
     "extends": "standard",
     "rules": {
-        "semi": ["always", { "omitLastInOneLineBlock": true }],
+        "semi": ["error", "always", { "omitLastInOneLineBlock": true }],
         "eqeqeq": 0
     }
 };
