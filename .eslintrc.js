@@ -3,8 +3,9 @@ module.exports = {
         "es6": true,
         "node": true
     },
-    "extends": "eslint-recommended",
+    "extends": "standard",
     "rules": {
-        "eqeqeq": true
+        "semi": ["always", { "omitLastInOneLineBlock": true }],
+        "eqeqeq": 0
     }
 };
