@@ -6,6 +6,7 @@ module.exports = {
     "extends": "standard",
     "rules": {
         "semi": ["error", "always", { "omitLastInOneLineBlock": true }],
-        "eqeqeq": 0
+        "eqeqeq": 0,
+        "indent": ["error", 4]
     }
 };
