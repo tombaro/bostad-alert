@@ -4,8 +4,8 @@ const getData = require('../external/getData');
 
 /* GET home page. */
 router.get('/', function (req, res, next) {
-    const data = getData.data();
-    res.render('index', { title: 'Bostad alert', list: data });
+    getData()
+        .then(d => res.render('index', { title: 'Bostad alert', list: d }));
 });
 
 module.exports = router;

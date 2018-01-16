@@ -1,28 +1,40 @@
-var request = require('request');
+var rp = require('request-promise');
 var fs = require('fs');
 
 const key = fs.readFileSync('./.env');
+const bostadUrl = 'https://bostad.stockholm.se';
 
-const send = function (data) {
-    const sendurl = 'https://hooks.slack.com/services/' + key;
-    const senddata = {
-        text: data.Gatuadress + '\n' + 'Antal rum: ' + data.AntalRum + ' Hyra: ' + data.Hyra
-    };
+var send = {
+    getSendData: function (bostader) {
+        return {
+            url: 'https://hooks.slack.com/services/' + key,
+            text: bostader.Gatuadress + '\n' + 'Antal rum: ' + bostader.AntalRum + ' Hyra: ' + bostader.Hyra + '\nLänk:<' + bostadUrl + bostader.Url + '>'
+        };
+    },
+    sendToSlack: function (data) {
+        let txt = '';
+        for (let index = 0; index < data.length; index++) {
+            txt += data[index].text;
+            txt += '\n';
+        }
+        let sendbody = {text: txt};
+        let sendurl = data[0].url;
+        console.log({sendbody, sendurl});
 
-    console.log('try send' + senddata + ' to: ' + sendurl);
-
-    // Send to Slack.
-    // request(
-    //     {
-    //         method: 'post',
-    //         body: senddata,
-    //         json: true,
-    //         url: sendurl
-    //     }, function (error, response, body) {
-    //         console.log(error);
-    //         // console.log(response);
-    //     }
-    // );
+        // Send to Slack.
+        // return rp(
+        //     {
+        //         method: 'post',
+        //         body: sendbody,
+        //         json: true,
+        //         uri: sendurl
+        //     }, function (error, response, body) {
+        //         if (error) {
+        //             console.log(error);
+        //         }
+        //     }
+        // );
+    }
 };
 
 module.exports = send;
