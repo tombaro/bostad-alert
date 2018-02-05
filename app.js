@@ -9,13 +9,16 @@ var fs = require('fs');
 
 var index = require('./routes/index');
 var users = require('./routes/users');
+var searches = require('./routes/search');
+var rentals = require('./routes/rental');
+
 var send = require('./external/sendToExternal');
 const getData = require('./external/getData');
 
 var app = express();
 
 // Setup MongoDb connection.
-const keys = JSON.parse(fs.readFileSync('../appsettings.json'));
+const keys = JSON.parse(fs.readFileSync('./appsettings.json'));
 var mongoDb = 'mongodb://' + keys.dbuser + ':' + keys.dbpassword + '@ds125288.mlab.com:25288/bostad-alert';
 mongoose.connect(mongoDb);
 mongoose.Promise = global.Promise;
@@ -36,6 +39,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', index);
 app.use('/users', users);
+app.use('/searches', searches);
+app.use('/rentals', rentals);
 
 getData()
     .map(send.getSendData)
