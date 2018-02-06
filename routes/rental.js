@@ -3,8 +3,8 @@ var router = express.Router();
 
 var rentalController = require('../controllers/rentalController');
 
-/* GET users listing. */
-// router.get('/', rentalController.index);
+/* GET rentals. */
+router.get('/', rentalController.index);
 router.get('/create', rentalController.rentalCreate);
 router.get('/', rentalController.rentalList);
 
