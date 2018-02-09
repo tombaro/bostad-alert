@@ -1,4 +1,6 @@
 var Rental = require('../models/rental');
+const { body, validationResult } = require('express-validator/check');
+const { sanitizeBody } = require('express-validator/filter');
 
 // module.exports.index = async function (req, res) {
 //     let rentals = await countRentals();
@@ -7,6 +9,56 @@ var Rental = require('../models/rental');
 //     // https://developer.mozilla.org/en-US/docs/Learn/Server-side/Express_Nodejs/Displaying_data/Home_page
 //     // https://blog.risingstack.com/mastering-async-await-in-nodejs/
 
+// Display create form on GET.
+exports.rentalCreateForm = function (req, res, next) {
+    res.render('rentals-form', { title: 'Skapa ledig lägenhet (för test)' });
+};
+
+// Handle create form on POST.
+exports.rentalCreate = [
+    // Validate input.
+    body('area', 'Area is required').isLength({min: 1}).trim(),
+
+    // Sanitize input.
+    sanitizeBody('area').trim().escape(),
+
+    // Process inputs.
+    (req, res, next) => {
+        // Extract errors from request.
+        const errors = validationResult(req);
+
+        // Create object.
+        var rental = new Rental(
+            { area: req.body.area }
+        );
+
+        if (!errors.isEmpty()) {
+            res.render('rentals-form', { title: 'Skapa ledig lägenhet (test)', rental: rental, errors: errors.array() });
+        } else {
+            // Check if already exists.
+            Rental.findOne({ 'area': req.body.area })
+                .exec(function (err, foundRental) {
+                    if (err) {
+                        return next(err);
+                    }
+                    if (foundRental) {
+                    // Exists.
+                        res.render('rentals-form', { title: 'Finns redan' });
+                    } else {
+                        rental.save(function (err) {
+                            if (err) {
+                                return next(err);
+                            }
+                            // Saved.
+                            console.log('try save');
+                            res.redirect(rental.detailUrl);
+                        });
+                    }
+                });
+        }
+    }
+];
+
 exports.rentalList = function (req, res, next) {
     Rental.find({}, 'area street')
         // .populate('')
@@ -14,13 +66,26 @@ exports.rentalList = function (req, res, next) {
             if (err) {
                 return next(err);
             }
+            console.log(rentalList);
             res.render('rentals', {title: 'Lista på lediga lägenheter', rentals: rentalList});
         });
 };
 
-exports.rentalCreate = function (req, res) {
-    res.send('Not implemented, create rental');
+exports.rentalDetail = async function (req, res, next) {
+    let rental = await getRental(req);
+
+    // Nothing found in db.
+    if (rental == null) {
+        var err = new Error('Not found');
+        err.status = 404;
+        return next(err);
+    }
+    res.render('rentals-detail', { title: 'Lägenhetsinformation', rental: rental });
 };
+
+async function getRental (req) {
+    return Rental.findById(req.params.id);
+}
 
 // async function countRentals () {
 //     return Rental.count();

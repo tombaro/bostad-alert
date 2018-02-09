@@ -24,4 +24,10 @@ rentalModelSchema
         return this.rent + ' kr';
     });
 
+rentalModelSchema
+    .virtual('detailUrl')
+    .get(function () {
+        return '/rentals/' + this._id;
+    });
+
 module.exports = mongoose.model('RentalModel', rentalModelSchema);

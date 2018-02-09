@@ -1,0 +1,24 @@
+<div>
+    <div>
+        <h2>{{title}}</h2>
+        <div>
+            <form action="" method="post">
+                <div class="formGroup">
+                    <label for="area">Område</label>
+                    <input type="text" name="area" id="" placeholder="Högdalen, etc" value="{{#if rental.area}}{{rental.area}}{{/if}}">
+                    <button type="submit">Spara</button>
+                    {{#if errors}}
+                    <ul>
+                        {{#each errors}}
+                        <li>
+                            {{msg}}
+                        </li>
+                        {{/each}}
+                    </ul>
+                    {{/if}}
+                </div>
+            </form>
+        </div>
+    </div>
+    
+</div>
