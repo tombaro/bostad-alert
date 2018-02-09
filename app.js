@@ -8,7 +8,6 @@ var mongoose = require('mongoose');
 if (process.env.NODE_ENV !== 'production') {
     require('dotenv').load();
 }
-// var fs = require('fs');
 
 var index = require('./routes/index');
 var users = require('./routes/users');

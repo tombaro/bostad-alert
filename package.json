@@ -10,7 +10,7 @@
     "cookie-parser": "~1.4.3",
     "debug": "~2.6.9",
     "dotenv": "^5.0.0",
-    "express": "~4.15.5",
+    "express": "~4.16.0",
     "hbs": "~4.0.1",
     "lodash.filter": "^4.6.0",
     "lodash.take": "^4.1.1",
