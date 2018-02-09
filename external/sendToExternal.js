@@ -1,13 +1,11 @@
 var rp = require('request-promise');
-var fs = require('fs');
 
-const key = fs.readFileSync('./.env');
 const bostadUrl = 'https://bostad.stockholm.se';
 
 var send = {
     getSendData: function (bostader) {
         return {
-            url: 'https://hooks.slack.com/services/' + key,
+            url: 'https://hooks.slack.com/services/' + process.env.slackkey,
             text: bostader.Gatuadress + '\n' + 'Antal rum: ' + bostader.AntalRum + ' Hyra: ' + bostader.Hyra + '\nLänk:<' + bostadUrl + bostader.Url + '>'
         };
     },

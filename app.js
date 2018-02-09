@@ -1,11 +1,14 @@
 var express = require('express');
 var path = require('path');
-var favicon = require('serve-favicon');
+// var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
-var fs = require('fs');
+if (process.env.NODE_ENV !== 'production') {
+    require('dotenv').load();
+}
+// var fs = require('fs');
 
 var index = require('./routes/index');
 var users = require('./routes/users');
@@ -18,8 +21,7 @@ const getData = require('./external/getData');
 var app = express();
 
 // Setup MongoDb connection.
-const keys = JSON.parse(fs.readFileSync('./appsettings.json'));
-var mongoDb = 'mongodb://' + keys.dbuser + ':' + keys.dbpassword + '@ds125288.mlab.com:25288/bostad-alert';
+var mongoDb = 'mongodb://' + process.env.dbuser + ':' + process.env.dbpassword + '@ds125288.mlab.com:25288/bostad-alert';
 mongoose.connect(mongoDb);
 mongoose.Promise = global.Promise;
 var db = mongoose.connection;
