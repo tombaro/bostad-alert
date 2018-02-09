@@ -2,5 +2,11 @@
 <p>Welcome to {{title}}</p>
 <div>
     <p>Antal: {{rentalList.length}}</p>
-    Resultat: {{rentalList}}
+    <div><h2>Resultat</h2>
+    <ul>
+        {{#each rentalList}}
+        <li>{{area}}, {{street}}</li>
+        {{/each}}
+    </ul>
+    </div>
 </div>
