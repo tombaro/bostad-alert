@@ -43,9 +43,9 @@ app.use('/users', users);
 app.use('/searches', searches);
 app.use('/rentals', rentals);
 
-getData()
-    .map(send.getSendData)
-    .then(send.sendToSlack);
+// getData()
+//     .map(send.getSendData)
+//     .then(send.sendToSlack);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
