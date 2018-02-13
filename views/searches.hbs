@@ -1,0 +1,13 @@
+<p>Welcome to {{title}}</p>
+<div>
+    <p>Antal: {{searches.length}}</p>
+    <div><h2>Resultat</h2>
+    <ul>
+        {{#each searches}}
+        <li>{{areas}}</li>
+        <li>{{minRooms}}</li>
+        <li>{{maxRent}}</li>
+        {{/each}}
+    </ul>
+    </div>
+</div>

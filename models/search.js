@@ -9,4 +9,10 @@ var searchModelSchema = new Schema({
     user: {type: Schema.ObjectId, ref: 'UserModel'}
 });
 
+searchModelSchema
+    .virtual('url')
+    .get(function () {
+        return '/searches/' + this._id;
+    });
+
 module.exports = mongoose.model('SearchModel', searchModelSchema);
