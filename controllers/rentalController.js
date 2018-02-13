@@ -60,7 +60,7 @@ exports.rentalCreate = [
 ];
 
 exports.rentalList = function (req, res, next) {
-    Rental.find({}, 'area street')
+    Rental.find({}, 'Stadsdel Gatuadress Yta AntalRum Hyra Url')
         // .populate('')
         .exec(function (err, rentalList) {
             if (err) {

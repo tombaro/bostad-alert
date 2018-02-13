@@ -1,10 +1,16 @@
 <p>Welcome to {{title}}</p>
 <div>
-    <p>Antal: {{rentalList.length}}</p>
+    <p>Antal: {{rentals.length}}</p>
     <div><h2>Resultat</h2>
     <ul>
-        {{#each rentalList}}
-        <li>{{area}}, {{street}}</li>
+        {{#each rentals}}
+        <li>
+            <h3>{{Stadsdel}}, {{Gatuadress}}</h3>
+            <p>Antal rum: {{AntalRum}}</p>
+            <p>Yta: {{ytaString}}</p>
+            <p>Hyra: {{hyraString}}</p>
+            <p><a href="{{url}}">Länk</a></p>
+        </li>
         {{/each}}
     </ul>
     </div>
