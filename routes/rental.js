@@ -9,5 +9,7 @@ router.get('/create', rentalController.rentalCreate);
 router.post('/create', rentalController.rentalCreate);
 router.get('/', rentalController.rentalList);
 router.get('/:id', rentalController.rentalDetail);
+router.get('/search/:search', rentalController.rentalSearch);
+router.post('/search/:search', rentalController.rentalSearch);
 
 module.exports = router;

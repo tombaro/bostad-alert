@@ -71,6 +71,24 @@ exports.rentalList = function (req, res, next) {
         });
 };
 
+exports.rentalSearch = async function (req, res, next) {
+    let search = req.params.search;
+    if (req.body.search) {
+        search = req.body.search;
+        res.redirect('/rentals/search/' + search);
+        return;
+    }
+    let results = await getRentals(search);
+    // Nothing found in db.
+    if (results == null) {
+        var err = new Error('Not found');
+        err.status = 404;
+        return next(err);
+    }
+
+    res.render('rentals', { title: 'Filtrerad lista', term: search, rentals: results });
+};
+
 exports.rentalDetail = async function (req, res, next) {
     let rental = await getRental(req);
 
@@ -85,6 +103,12 @@ exports.rentalDetail = async function (req, res, next) {
 
 async function getRental (req) {
     return Rental.findById(req.params.id);
+}
+
+async function getRentals (search) {
+    return Rental
+        .find({ $or: [{ Gatuadress: new RegExp(search, 'i') }, { Stadsdel: new RegExp(search, 'i') }] })
+        .exec();
 }
 
 // async function countRentals () {

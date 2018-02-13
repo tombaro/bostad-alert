@@ -1,7 +1,10 @@
-<p>Welcome to {{title}}</p>
 <div>
     <p>Antal: {{rentals.length}}</p>
-    <div><h2>Resultat</h2>
+    <form action="" method="post">
+        <input type="text" name="search" id="search" value="{{#if term}}{{term}}{{/if}}" />
+    </form>
+    <div>
+    {{#if term}}<h2>Resultat för "{{term}}”</h2>{{/if}}
     <ul>
         {{#each rentals}}
         <li>

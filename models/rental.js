@@ -15,6 +15,8 @@ var rentalModelSchema = new Schema({
     Balkong: Boolean
 }, { collection: 'allaannonser' });
 
+rentalModelSchema.index({ Stadsdel: 'text', Gatuadress: 'text' });
+
 rentalModelSchema
     .virtual('ytaString')
     .get(function () {
