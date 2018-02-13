@@ -8,4 +8,10 @@ var userModelSchema = new Schema({
     slackKey: String
 });
 
+userModelSchema
+    .virtual('url')
+    .get(function () {
+        return '/users/' + this._id;
+    });
+
 module.exports = mongoose.model('UserModel', userModelSchema);

@@ -1,0 +1,26 @@
+<div>
+    <div>
+        <h2>{{title}}</h2>
+        <div>
+            <form action="" method="post">
+                <div class="formGroup">
+                    <label for="name">Namn</label>
+                    <input type="text" name="name" id="" placeholder="Namn" value="{{#if user.name}}{{user.name}}{{/if}}">
+                    <label for="email">E-post</label>
+                    <input type="text" name="email" id="" placeholder="Epost" value="{{#if user.email}}{{user.email}}{{/if}}">
+                    <button type="submit">Spara</button>
+                    {{#if errors}}
+                    <ul>
+                        {{#each errors}}
+                        <li>
+                            {{msg}}
+                        </li>
+                        {{/each}}
+                    </ul>
+                    {{/if}}
+                </div>
+            </form>
+        </div>
+    </div>
+    
+</div>

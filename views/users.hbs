@@ -1,0 +1,11 @@
+<p>Welcome to {{title}}</p>
+<div>
+    <p>Antal: {{userList.length}}</p>
+    <div><h2>Resultat</h2>
+    <ul>
+        {{#each userList}}
+        <li>{{name}}, {{email}}</li>
+        {{/each}}
+    </ul>
+    </div>
+</div>
