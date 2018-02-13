@@ -46,7 +46,6 @@ exports.userCreate = [
                                 return next(err);
                             }
                             // Saved.
-                            console.log('try save');
                             res.redirect(user.url);
                         });
                     }
@@ -62,7 +61,6 @@ exports.userList = function (req, res, next) {
             if (err) {
                 return next(err);
             }
-            console.log(userList);
             res.render('users', {title: 'Lista på användare', users: userList});
         });
 };
