@@ -1,0 +1,28 @@
+<div>
+    <div>
+        <h2>{{title}}</h2>
+        <div>
+            <form action="" method="post">
+                <div class="formGroup">
+                    <label for="areas">Områden (separeras med ",")</label>
+                    <input type="text" name="areas" id="" placeholder="Områden" value="{{#if search.areas}}{{search.areas}}{{/if}}">
+                    <label for="minRooms">Minsta antal rum</label>
+                    <input type="text" name="minRooms" id="" placeholder="1" value="{{#if search.minRooms}}{{search.minRooms}}{{/if}}">
+                    <label for="maxRent">Högsta tillåtna hyra</label>
+                    <input type="text" name="maxRent" id="" placeholder="" value="{{#if search.maxRent}}{{search.maxRent}}{{/if}}">
+                    <button type="submit">Spara</button>
+                    {{#if errors}}
+                    <ul>
+                        {{#each errors}}
+                        <li>
+                            {{msg}}
+                        </li>
+                        {{/each}}
+                    </ul>
+                    {{/if}}
+                </div>
+            </form>
+        </div>
+    </div>
+    
+</div>
