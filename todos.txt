@@ -1,21 +1,5 @@
-Modeller:
-Användare
-Namn
-epost
-slacknyckel
+Sökningar
+    Spara
+    Utskick
 
-Sökning:
-områden
-minst antal rum
-max hyra
-
-
-Bostadsdata:
-Område
-Gata
-antal rum
-kvm
-hyra
-sista sökdatum
-url
-(hyrtyp, värd, balkong)
+Hämta bostadsdata regelbundet

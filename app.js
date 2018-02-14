@@ -14,8 +14,9 @@ var users = require('./routes/users');
 var searches = require('./routes/search');
 var rentals = require('./routes/rental');
 
-var send = require('./external/sendToExternal');
-const getData = require('./external/getData');
+const saveData = require('./external/fillRentalData');
+// var send = require('./external/sendToExternal');
+// const getData = require('./external/getData');
 
 var app = express();
 
@@ -43,6 +44,7 @@ app.use('/users', users);
 app.use('/searches', searches);
 app.use('/rentals', rentals);
 
+// saveData();
 // getData()
 //     .map(send.getSendData)
 //     .then(send.sendToSlack);
