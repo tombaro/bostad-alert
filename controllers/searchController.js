@@ -1,10 +1,15 @@
-var Search = require('../models/search');
 const { body, validationResult } = require('express-validator/check');
 const { sanitizeBody } = require('express-validator/filter');
 
+var Search = require('../models/search');
+var User = require('../models/user');
+
 // Display create form on GET.
-exports.searchCreateForm = function (req, res, next) {
-    res.render('search-form', { title: 'Skapa sökning' });
+exports.searchCreateForm = async function (req, res, next) {
+    // Get all users.
+    let users = await getUsers();
+
+    res.render('search-form', { title: 'Skapa sökning', users: users });
 };
 
 // Handle create form on POST.
@@ -82,4 +87,9 @@ exports.searchDetail = async function (req, res, next) {
 
 async function getSearch (req) {
     return Search.findById(req.params.id);
+}
+
+async function getUsers () {
+    return User.find({})
+        .exec();
 }

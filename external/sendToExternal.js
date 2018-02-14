@@ -1,6 +1,11 @@
 var rp = require('request-promise');
 
+const Search = require('../models/search');
+
 const bostadUrl = 'https://bostad.stockholm.se';
+
+// Get data to send.
+// For each saved search, get proper data and send.
 
 var send = {
     getSendData: function (bostader) {
@@ -34,5 +39,17 @@ var send = {
         // );
     }
 };
+
+async function sendToAll () {
+    let searches = await getSearches();
+    for (let i = 0; i < searches.length; i++) {
+        console.log(searches[i]);
+    }
+}
+
+async function getSearches () {
+    return Search.find({})
+        .exec();
+}
 
 module.exports = send;

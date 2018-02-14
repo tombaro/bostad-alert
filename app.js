@@ -50,7 +50,7 @@ function startSavingData () {
     saveData();
     setTimeout(startSavingData, recurringSave);
 }
-startSavingData();
+// startSavingData();
 // getData()
 //     .map(send.getSendData)
 //     .then(send.sendToSlack);
