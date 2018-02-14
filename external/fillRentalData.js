@@ -3,7 +3,6 @@ var rp = require('request-promise');
 var Rental = require('../models/rental');
 
 const url = 'https://bostad.stockholm.se/Lista/AllaAnnonser';
-// Do this every x hour.
 
 // Get rental data from external api and save.
 function saveRentals () {

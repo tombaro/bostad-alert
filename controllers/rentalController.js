@@ -79,6 +79,7 @@ exports.rentalSearch = async function (req, res, next) {
         return;
     }
     let results = await getRentals(search);
+    console.log('results');
     // Nothing found in db.
     if (results == null) {
         var err = new Error('Not found');

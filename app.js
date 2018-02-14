@@ -44,7 +44,13 @@ app.use('/users', users);
 app.use('/searches', searches);
 app.use('/rentals', rentals);
 
-// saveData();
+const recurringSave = 1000 * 60 * 60 * 4;
+function startSavingData () {
+    console.log('Start saving at: ' + new Date(Date.now()).toLocaleTimeString());
+    saveData();
+    setTimeout(startSavingData, recurringSave);
+}
+startSavingData();
 // getData()
 //     .map(send.getSendData)
 //     .then(send.sendToSlack);

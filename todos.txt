@@ -1,5 +1,2 @@
 Sökningar
-    Spara
-    Utskick
-
-Hämta bostadsdata regelbundet
+    Utskick varje dag vid klockslag?
