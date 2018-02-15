@@ -15,12 +15,12 @@ exports.searchCreateForm = async function (req, res, next) {
 // Handle create form on POST.
 exports.searchCreate = [
     // Validate input.
-    body('areas', 'area is required').isLength({min: 1}).trim(),
+    body('Stadsdelar', 'area is required').isLength({min: 1}).trim(),
     body('minRooms', 'Must be a number').isNumeric().trim(),
     body('maxRent', 'Must be a number').isNumeric().trim(),
 
     // Sanitize input.
-    sanitizeBody('areas').trim().escape(),
+    sanitizeBody('Stadsdelar').trim().escape(),
     sanitizeBody('minRooms').trim().escape(),
     sanitizeBody('maxRent').trim().escape(),
 
@@ -31,7 +31,7 @@ exports.searchCreate = [
 
         // Create object.
         var search = new Search(
-            { areas: req.body.areas,
+            { Stadsdelar: [req.body.Stadsdelar], // TODO: Create array of strings.
                 minRooms: req.body.minRooms,
                 maxRent: req.body.maxRent }
         );
@@ -39,31 +39,31 @@ exports.searchCreate = [
         if (!errors.isEmpty()) {
             res.render('search-form', { title: 'Skapa sökning', search: search, errors: errors.array() });
         } else {
-            // Check if already exists.
-            Search.findOne({ 'areas': req.body.areas })
-                .exec(function (err, foundSearch) {
-                    if (err) {
-                        return next(err);
-                    }
-                    if (foundSearch) {
-                    // Exists.
-                        res.render('search-form', { title: 'Finns redan' });
-                    } else {
-                        search.save(function (err) {
-                            if (err) {
-                                return next(err);
-                            }
-                            // Saved.
-                            res.redirect(search.url);
-                        });
-                    }
-                });
+            // Check if already exists. Why???
+            // Search.findOne({ 'Stadsdel': req.body.Stadsdel })
+            //     .exec(function (err, foundSearch) {
+            //         if (err) {
+            //             return next(err);
+            //         }
+            //         if (foundSearch) {
+            //         // Exists.
+            //             res.render('search-form', { title: 'Finns redan' });
+            //         } else {
+            search.save(function (err) {
+                if (err) {
+                    return next(err);
+                }
+                // Saved.
+                res.redirect(search.url);
+            });
+            //     }
+            // });
         }
     }
 ];
 
 exports.searchList = function (req, res, next) {
-    Search.find({}, 'areas minRooms maxRent')
+    Search.find({}, 'Stadsdelar minRooms maxRent')
         // .populate('')
         .exec(function (err, searchList) {
             if (err) {

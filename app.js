@@ -15,7 +15,7 @@ var searches = require('./routes/search');
 var rentals = require('./routes/rental');
 
 const saveData = require('./external/fillRentalData');
-// var send = require('./external/sendToExternal');
+var send = require('./external/sendToExternal');
 // const getData = require('./external/getData');
 
 var app = express();
@@ -49,11 +49,9 @@ function startSavingData () {
     console.log('Start saving at: ' + new Date(Date.now()).toLocaleTimeString());
     saveData();
     setTimeout(startSavingData, recurringSave);
+    send();
 }
 // startSavingData();
-// getData()
-//     .map(send.getSendData)
-//     .then(send.sendToSlack);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

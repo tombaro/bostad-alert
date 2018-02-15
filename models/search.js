@@ -3,7 +3,7 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var searchModelSchema = new Schema({
-    areas: [String],
+    Stadsdelar: [String],
     minRooms: String,
     maxRent: Number,
     user: {type: Schema.ObjectId, ref: 'UserModel'}
