@@ -1,4 +1,5 @@
 var rp = require('request-promise');
+var nodemailer = require('nodemailer');
 
 const Search = require('../models/search');
 const Rental = require('../models/rental');
@@ -21,7 +22,8 @@ async function sendRentals (searchModel) {
         .find({ Stadsdel: new RegExp(searchModel.Stadsdelar[0], 'i') })
         .exec();
 
-    sendToSlack(rentals);
+    // sendToSlack(rentals);
+    sendToEmail(rentals, searchModel.user.email);
 }
 
 async function sendToSlack (rentals) {
@@ -44,8 +46,28 @@ async function sendToSlack (rentals) {
     // );
 }
 
+async function sendToEmail (rentals, email) {
+    let sendbody = await getSendData(rentals);
+
+    const mailOptions = {
+        from: 'tombaro@gmail.com',
+        to: email,
+        subject: 'Dina aktuella lägenheter',
+        text: sendbody
+    };
+
+    console.log(email);
+    // transporter.sendMail(mailOptions, function (error, info) {
+    //     if (error) {
+    //         console.log(error);
+    //     }
+    //     console.log('Email sent:' + info.response);
+    // });
+}
+
 async function getSearches () {
     return Search.find({})
+        .populate('user')
         .exec();
 }
 
@@ -57,5 +79,15 @@ async function getSendData (rentals) {
 
     return txt;
 }
+
+// Gmail config setup.
+var transporter = nodemailer.createTransport({
+    host: 'smtp.gmail.com',
+    port: 587,
+    auth: {
+        user: 'tombaro@gmail.com',
+        pass: process.env.emailpassword
+    }
+});
 
 module.exports = sendToAll;

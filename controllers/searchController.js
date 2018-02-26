@@ -33,7 +33,8 @@ exports.searchCreate = [
         var search = new Search(
             { Stadsdelar: [req.body.Stadsdelar], // TODO: Create array of strings.
                 minRooms: req.body.minRooms,
-                maxRent: req.body.maxRent }
+                maxRent: req.body.maxRent,
+                user: req.body.users }
         );
 
         if (!errors.isEmpty()) {
@@ -64,7 +65,7 @@ exports.searchCreate = [
 
 exports.searchList = function (req, res, next) {
     Search.find({}, 'Stadsdelar minRooms maxRent')
-        // .populate('')
+        .populate('user')
         .exec(function (err, searchList) {
             if (err) {
                 return next(err);
@@ -86,7 +87,9 @@ exports.searchDetail = async function (req, res, next) {
 };
 
 async function getSearch (req) {
-    return Search.findById(req.params.id);
+    return Search.findById(req.params.id)
+        .populate('user')
+        .exec();
 }
 
 async function getUsers () {

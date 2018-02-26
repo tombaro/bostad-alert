@@ -47,11 +47,11 @@ app.use('/rentals', rentals);
 const recurringSave = 1000 * 60 * 60 * 4;
 function startSavingData () {
     console.log('Start saving at: ' + new Date(Date.now()).toLocaleTimeString());
-    saveData();
-    setTimeout(startSavingData, recurringSave);
+    // saveData();
+    // setTimeout(startSavingData, recurringSave);
     send();
 }
-// startSavingData();
+startSavingData();
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
