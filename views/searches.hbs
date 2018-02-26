@@ -4,9 +4,13 @@
     <div><h2>Resultat</h2>
     <ul>
         {{#each searches}}
-        <li>{{areas}}</li>
-        <li>{{minRooms}}</li>
-        <li>{{maxRent}}</li>
+        <li>
+            Områden: {{Stadsdelar}}<br>
+            Minsta antal rum: {{minRooms}}<br>
+            Maxhyra: {{maxRent}}<br>
+            Användare: {{user.name}}, {{user.email}}<br>
+            <hr>
+        </li>
         {{/each}}
     </ul>
     </div>
